@@ -87,16 +87,6 @@ jobs:
     - name: Verify gcloud installation
       run: gcloud --version
 
-    - name: Debug gcloud installation
-      run: |
-        which gcloud
-
-    - name: List installed packages
-      run: dpkg -l | grep google-cloud-sdk
-
-    - name: List binaries in PATH
-      run: ls -la /usr/lib/google-cloud-sdk/bin 
-
     - name: Authenticate to GCP
       uses: google-github-actions/auth@v1
       with:
