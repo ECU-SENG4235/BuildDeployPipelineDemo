@@ -70,7 +70,11 @@ jobs:
 
     - name: Publish
       # Publish the project, outputting the compiled files to the 'publish' directory.
-      run: dotnet publish --configuration Release --output ./publish  
+      run: |
+        pwd
+        ls -la
+        cd BuildDeployPipelineDemo      
+        dotnet publish --configuration Release --output ./publish  
 
     - name: Authenticate to GCP
       # Save GCP credentials from GitHub secrets to a JSON file. 
