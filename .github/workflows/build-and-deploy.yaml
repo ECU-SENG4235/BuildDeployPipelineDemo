@@ -88,6 +88,10 @@ jobs:
     - name: Verify gcloud installation
       run: gcloud --version
 
+    - name: Debug gcloud installation
+      run: |
+        which gcloud
+
     - name: Authenticate to GCP
       # Save GCP credentials from GitHub secrets to a JSON file. 
       # Authenticate to GCP using the credentials file.
