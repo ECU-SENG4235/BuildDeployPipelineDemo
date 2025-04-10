@@ -62,7 +62,11 @@ jobs:
 
     - name: Test
       # Run tests and collect code coverage data.
-      run: dotnet test --configuration Release --collect:"XPlat Code Coverage"  
+      run: |
+        pwd
+        ls -la
+        cd BuildDeployPipelineDemo      
+        dotnet test --configuration Release --collect:"XPlat Code Coverage"  
 
     - name: Publish
       # Publish the project, outputting the compiled files to the 'publish' directory.
