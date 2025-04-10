@@ -30,7 +30,7 @@ jobs:
       # Change directory to the cloned repository.
       run: |
         git clone https://github.com/${{ github.repository_owner }}/BuildDeployPipelineDemo.git  
-        cd your-repo  
+        cd BuildDeployPipelineDemo  
 
     - name: Install .NET SDK
       # Download the .NET SDK installation script.
