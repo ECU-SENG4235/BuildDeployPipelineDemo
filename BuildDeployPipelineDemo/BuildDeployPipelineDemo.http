@@ -1,0 +1,6 @@
+@BuildDeployPipelineDemo_HostAddress = http://localhost:5056
+
+GET {{BuildDeployPipelineDemo_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
