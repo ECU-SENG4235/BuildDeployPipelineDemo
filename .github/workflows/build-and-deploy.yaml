@@ -1,0 +1,75 @@
+# Name of pipeline
+name: Build and Deploy to GCP
+
+run-name: Deploy to ${{ inputs.deploy_target }} by @${{ github.actor }}
+
+# Configure triggers
+on:
+  # Trigger on a push
+  push:
+    # But only for the listed branches
+    branches:
+      # This pipeline will run whenever changes are pushed to the 'main' branch.
+      - main  
+  
+  # Trigger on a pull request    
+  pull_request:
+    # But only for the listed branches
+    branches:
+      # This pipeline will run whenever changes are pushed to the 'main' branch.
+      - main  
+
+jobs:
+  deploy_to_main:
+    # The pipeline will execute on the latest version of Ubuntu.
+    runs-on: ubuntu-latest  
+
+    steps:
+    - name: Checkout code
+      # Clone the repository from GitHub.
+      # Change directory to the cloned repository.
+      run: |
+        git clone https://github.com/${{ github.repository_owner }}/BuildDeployPipelineDemo.git  
+        cd your-repo  
+
+    - name: Install .NET SDK
+      # Download the .NET SDK installation script.
+      # Make the script executable.
+      # Run the script to install .NET SDK version 9.0.201.
+      # Add .NET SDK to the system path.
+      run: |
+        wget https://dot.net/v1/dotnet-install.sh  
+        chmod +x dotnet-install.sh  
+        ./dotnet-install.sh --version 9.0.201  
+        echo "::add-path::$(HOME)/.dotnet"  
+
+    - name: Restore dependencies
+      # Restore the project dependencies specified in the project file.
+      run: dotnet restore  
+
+    - name: Build
+      # Build the project in Release configuration.
+      run: dotnet build --configuration Release  
+
+    - name: Test
+      # Run tests and collect code coverage data.
+      run: dotnet test --configuration Release --collect:"XPlat Code Coverage"  
+
+    - name: Publish
+      # Publish the project, outputting the compiled files to the 'publish' directory.
+      run: dotnet publish --configuration Release --output ./publish  
+
+    - name: Authenticate to GCP
+      # Save GCP credentials from GitHub secrets to a JSON file. 
+      # Authenticate to GCP using the credentials file.
+      run: |
+        echo ${{ secrets.GCP_DEPLOY_SA_KEY }} > gcp_credentials.json  
+        gcloud auth activate-service-account --key-file=gcp_credentials.json  
+
+    - name: Set up Cloud SDK
+      # Set the GCP project ID using GitHub secrets.
+      run: gcloud config set project ${{ secrets.GCP_PROJECT_ID }}  
+
+    - name: Deploy to GCP
+      # Deploy the application to GCP using the 'app.yaml' configuration file.
+      run: gcloud app deploy ./publish/app.yaml --quiet  
