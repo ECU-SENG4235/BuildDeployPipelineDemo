@@ -89,7 +89,8 @@ jobs:
       # Save GCP credentials from GitHub secrets to a JSON file. 
       # Authenticate to GCP using the credentials file.
       run: |
-        echo ${{ secrets.GCP_DEPLOY_SA_KEY }} > gcp_credentials.json  
+        echo ${{ secrets.GCP_DEPLOY_SA_KEY }} > gcp_credentials.json 
+        echo ${{ secrets.GCP_DEPLOY_SA_KEY }} 
         gcloud auth activate-service-account --key-file=gcp_credentials.json  
 
     - name: Set up Cloud SDK
