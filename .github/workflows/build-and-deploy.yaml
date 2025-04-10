@@ -36,8 +36,7 @@ jobs:
       # Download the .NET SDK installation script.
       # Make the script executable.
       # Run the script to install .NET SDK version 9.0.201.
-      # Add .NET SDK to the system path.
-      # echo "::add-path::$(HOME)/.dotnet" 
+      # Add .NET SDK to the system path using new secure secure technique.
       run: |
         wget https://dot.net/v1/dotnet-install.sh  
         chmod +x dotnet-install.sh  
@@ -45,26 +44,23 @@ jobs:
         echo "$HOME/.dotnet" >> "$GITHUB_PATH" 
 
     - name: Restore dependencies
+      # Navigate to project directory
       # Restore the project dependencies specified in the project file.
       run: |
-        pwd
-        ls -la
         cd BuildDeployPipelineDemo
         dotnet restore  
 
     - name: Build
+      # Navigate to project directory
       # Build the project in Release configuration.
       run: |
-        pwd
-        ls -la
         cd BuildDeployPipelineDemo      
         dotnet build --configuration Release  
 
     - name: Test
+      # Navigate to project directory
       # Run tests and collect code coverage data.
       run: |
-        pwd
-        ls -la
         cd BuildDeployPipelineDemo      
         dotnet test --configuration Release --collect:"XPlat Code Coverage"  
 
@@ -72,8 +68,6 @@ jobs:
       # Navigate to project directory
       # Publish the project, outputting the compiled files to the 'publish' directory.
       run: |
-        pwd
-        ls -la
         cd BuildDeployPipelineDemo      
         dotnet publish --configuration Release --output ./publish  
 
