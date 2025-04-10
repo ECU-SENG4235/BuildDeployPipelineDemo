@@ -92,4 +92,6 @@ jobs:
 
     - name: Deploy to GCP
       # Deploy the application to GCP using the 'app.yaml' configuration file.
-      run: gcloud app deploy ./publish/app.yaml --quiet  
+      run: |
+        cd BuildDeployPipelineDemo 
+        gcloud app deploy ./publish/app.yaml --quiet  
