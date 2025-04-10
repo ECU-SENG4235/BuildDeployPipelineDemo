@@ -70,6 +70,12 @@ jobs:
       run: |
         cd BuildDeployPipelineDemo      
         dotnet publish --configuration Release --output ./publish  
+      
+    - name: Debug Publish Directory
+      # Display contents of the publish directory
+      run: |
+        cd BuildDeployPipelineDemo/publish
+        ls -la
 
     - name: Setup Google Cloud CLI
       uses: google-github-actions/setup-gcloud@v1
