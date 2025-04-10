@@ -76,16 +76,12 @@ jobs:
         cd BuildDeployPipelineDemo      
         dotnet publish --configuration Release --output ./publish  
 
-    - name: Install Google Cloud CLI
-      run: |
-        sudo apt update
-        sudo apt install -y apt-transport-https ca-certificates gnupg
-        curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
-        echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee /etc/apt/sources.list.d/google-cloud-sdk.list > /dev/null
-        sudo apt update
-        sudo apt install -y google-cloud-sdk
-        echo "/usr/lib/google-cloud-sdk/bin" >> $GITHUB_PATH
-        export PATH=$PATH:/usr/lib/google-cloud-sdk/bin
+    - name: Setup Google Cloud CLI
+      uses: google-github-actions/setup-gcloud@v1
+      with:
+        version: 'latest'
+        service_account_key: ${{ secrets.GCP_DEPLOY_SA_KEY }}
+        export_default_credentials: true
 
     - name: Verify gcloud installation
       run: gcloud --version
