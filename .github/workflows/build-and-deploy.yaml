@@ -85,6 +85,9 @@ jobs:
         sudo apt update
         sudo apt install -y google-cloud-sdk
 
+    - name: Verify gcloud installation
+      run: gcloud --version
+
     - name: Authenticate to GCP
       # Save GCP credentials from GitHub secrets to a JSON file. 
       # Authenticate to GCP using the credentials file.
