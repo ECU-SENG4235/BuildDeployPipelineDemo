@@ -48,6 +48,7 @@ jobs:
       # Restore the project dependencies specified in the project file.
       run: |
         pwd
+        ls -la
         dotnet restore  
 
     - name: Build
