@@ -69,6 +69,7 @@ jobs:
         dotnet test --configuration Release --collect:"XPlat Code Coverage"  
 
     - name: Publish
+      # Navigate to project directory
       # Publish the project, outputting the compiled files to the 'publish' directory.
       run: |
         pwd
@@ -94,18 +95,12 @@ jobs:
       run: dpkg -l | grep google-cloud-sdk
 
     - name: List binaries in PATH
-      run: ls -la /usr/lib/google-cloud-sdk/bin
+      run: ls -la /usr/lib/google-cloud-sdk/bin 
 
     - name: Authenticate to GCP
-      # Save GCP credentials from GitHub secrets to a JSON file. 
-      # Authenticate to GCP using the credentials file.
-      run: |
-        pwd
-        ls -la
-        echo ${{ secrets.GCP_DEPLOY_SA_KEY }} > gcp_credentials.json 
-        pwd
-        ls -la
-        gcloud auth activate-service-account --key-file=gcp_credentials.json  
+      uses: google-github-actions/auth@v1
+      with:
+        credentials_json: ${{ secrets.GCP_DEPLOY_SA_KEY }}
 
     - name: Set up Cloud SDK
       # Set the GCP project ID using GitHub secrets.
