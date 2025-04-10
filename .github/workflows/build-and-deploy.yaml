@@ -104,6 +104,8 @@ jobs:
       # Save GCP credentials from GitHub secrets to a JSON file. 
       # Authenticate to GCP using the credentials file.
       run: |
+        pwd
+        ls -la
         echo ${{ secrets.GCP_DEPLOY_SA_KEY }} > gcp_credentials.json 
         pwd
         ls -la
