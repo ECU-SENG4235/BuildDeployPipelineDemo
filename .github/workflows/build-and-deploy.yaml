@@ -54,7 +54,11 @@ jobs:
 
     - name: Build
       # Build the project in Release configuration.
-      run: dotnet build --configuration Release  
+      run: |
+        pwd
+        ls -la
+        cd BuildDeployPipelineDemo      
+        dotnet build --configuration Release  
 
     - name: Test
       # Run tests and collect code coverage data.
