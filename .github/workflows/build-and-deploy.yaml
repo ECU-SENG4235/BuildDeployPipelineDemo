@@ -49,6 +49,7 @@ jobs:
       run: |
         pwd
         ls -la
+        cd BuildDeployPipelineDemo
         dotnet restore  
 
     - name: Build
