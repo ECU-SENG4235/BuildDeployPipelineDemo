@@ -85,6 +85,7 @@ jobs:
         sudo apt update
         sudo apt install -y google-cloud-sdk
         echo "/usr/lib/google-cloud-sdk/bin" >> $GITHUB_PATH
+        export PATH=$PATH:/usr/lib/google-cloud-sdk/bin
 
     - name: Verify gcloud installation
       run: gcloud --version
