@@ -46,7 +46,9 @@ jobs:
 
     - name: Restore dependencies
       # Restore the project dependencies specified in the project file.
-      run: dotnet restore  
+      run: |
+        cwd
+        dotnet restore  
 
     - name: Build
       # Build the project in Release configuration.
